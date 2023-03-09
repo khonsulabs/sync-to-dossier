@@ -25,7 +25,7 @@ runs:
   steps:
     - run: wget https://khonsu.dev/dossier/builds/main/dossier
       shell: bash
-    - run: chmox +x dossier
+    - run: chmod +x dossier
       shell: bash
     - run: ./dossier --token ${{ inputs.api-key-id }} --url ${{ inputs.url }} project sync ${{ inputs.project }} ${{ inputs.from }} ${{ inputs.to }}
       shell: bash
