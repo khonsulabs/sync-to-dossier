@@ -23,9 +23,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: wget https://khonsu.dev/dossier/builds/main/dossier
+    - run: wget https://khonsu.dev/dossier/builds/main/dossier-x86_64-unknown-linux-gnu.tgz
       shell: bash
-    - run: chmod +x dossier
+    - run: tar -xzf dossier-x86_64-unknown-linux-gnu.tgz
       shell: bash
     - run: ./dossier --token ${{ inputs.api-key-id }} --url ${{ inputs.url }} project sync ${{ inputs.project }} ${{ inputs.from }} ${{ inputs.to }}
       shell: bash
