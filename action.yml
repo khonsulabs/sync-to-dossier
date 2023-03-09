@@ -1,0 +1,35 @@
+name: 'Sync to Dossier'
+description: 'Syncronizes a local folder to a Dossier server'
+inputs:
+  url:
+    description: 'The url to the WebSocket endpoint for the Dossier service'
+    required: true
+  api-key-id:
+    description: 'The API Key ID to use'
+    required: true
+  api-key:
+    description: 'The API Key to use'
+    required: true
+  project:
+    description: 'The project slug to synchronize'
+    required: true
+  from:
+    description: 'The local path to synchronize'
+    required: true
+  to:
+    description: 'The remote path to synchronize to'
+    required: false
+    default: "/"
+runs:
+  using: "composite"
+  steps:
+    - run: wget https://khonsu.dev/dossier/builds/main/dossier
+      shell: bash
+    - run: chmox +x dossier
+      shell: bash
+    - run: ./dossier --token ${{ inputs.api-key-id }} --url ${{ inputs.url }} project sync ${{ inputs.project }} ${{ inputs.from }} ${{ inputs.to }}
+      shell: bash
+      env:
+        BONSAIDB_TOKEN_SECRET: ${{ inputs.api-key }}
+
+
